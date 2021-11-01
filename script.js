@@ -85,10 +85,10 @@ function game() {
     else alert("You lost!");
 
     do {
-        input = prompt("Play again?");
+        input = prompt("Play again? Y/N");
         if (input.toUpperCase() == "Y") game();
         else if (input.toUpperCase() == "N") alert("Thanks for playing!");
-        else alert("Incorrect input!");
+        else alert("Enter Y or N.");
     } while (input.toUpperCase() != "Y" && input.toUpperCase() != "N");
 }
 
