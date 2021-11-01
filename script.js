@@ -1,5 +1,3 @@
-console.log("Hello world!");
-
 //Computer's random selection of rock/paper/scissors
 function computerPlay() {
     let choice = Math.floor(Math.random() * 3) + 1;
@@ -8,6 +6,7 @@ function computerPlay() {
     else return "SCISSORS";
 }
 
+//One game round
 function playRound(playerSelection, computerSelection) {
     switch(playerSelection.toUpperCase()) {
         case "ROCK":
@@ -19,6 +18,15 @@ function playRound(playerSelection, computerSelection) {
     }
 }
 
-const playerSelection = "rock";
-const computerSelection = computerPlay();
-console.log(playRound(playerSelection, computerSelection));
+//The entire game, i depends on the number of rounds you want
+function game() {
+    let playerSelection = "rOck";
+    let computerSelection;
+
+    for (let i = 0; i < 5; i++) {
+        computerSelection = computerPlay();
+        console.log(playRound(playerSelection, computerSelection));
+    }
+}
+
+game();
