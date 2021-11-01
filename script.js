@@ -83,6 +83,13 @@ function game() {
 
     if (playerScore > computerScore) alert("You win!");
     else alert("You lost!");
+
+    do {
+        input = prompt("Play again?");
+        if (input.toUpperCase() == "Y") game();
+        else if (input.toUpperCase() == "N") alert("Thanks for playing!");
+        else alert("Incorrect input!");
+    } while (input.toUpperCase() != "Y" && input.toUpperCase() != "N");
 }
 
 let playerScore = 0;
