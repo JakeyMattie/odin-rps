@@ -15,7 +15,7 @@ function playerPlay() {
         if (input.toUpperCase() != "ROCK" && input.toUpperCase() != "PAPER" && input.toUpperCase() != "SCISSORS") alert("Incorrect input!")
     } while (input.toUpperCase() != "ROCK" && input.toUpperCase() != "PAPER" && input.toUpperCase() != "SCISSORS");
     //Code above has to specifically check for rock/paper/scissors otherwise it loops for a prompt
-    
+
     return input;
 }
 
@@ -24,18 +24,36 @@ function playRound(playerSelection, computerSelection) {
     switch(playerSelection.toUpperCase()) {
         case "ROCK":
             if (computerSelection == "ROCK") return `It's a tie! Both chose rock!`;
-            else if (computerSelection == "PAPER") return `You lose! Paper beats rock!`;
-            else return `You win! Rock beats scissors!`;
+            else if (computerSelection == "PAPER") {
+                computerScore++;
+                return `You lose! Paper beats rock!`;
+            }
+            else {
+                playerScore++;
+                return `You win! Rock beats scissors!`;
+            }
             break;
         case "PAPER":
             if (computerSelection == "PAPER") return `It's a tie! Both chose paper!`;
-            else if (computerSelection == "ROCK") return `You win! Paper beats rock!`;
-            else return `You lose! Scissors beat paper!`;
+            else if (computerSelection == "ROCK") {
+                playerScore++;
+                return `You win! Paper beats rock!`;
+            }
+            else {
+                computerScore++;
+                return `You lose! Scissors beat paper!`;
+            }
             break;
         case "SCISSORS":
             if (computerSelection == "SCISSORS") return `It's a tie! Both chose scissors!`;
-            else if (computerSelection == "ROCK") return `You lose! Rock beats scissors!`;
-            else return `You win! Scissors beat paper!`;
+            else if (computerSelection == "ROCK") {
+                computerScore++;
+                return `You lose! Rock beats scissors!`;
+            }
+            else {
+                playerScore++;
+                return `You win! Scissors beat paper!`;
+            }
             break;
         default: 
             break;
@@ -46,8 +64,12 @@ function playRound(playerSelection, computerSelection) {
 function game() {
     let playerSelection;
     let computerSelection;
+    let input = prompt("How many rounds?");
 
-    for (let i = 0; i < 5; i++) {
+    playerScore = 0;
+    computerScore = 0;
+
+    for (let i = 0; i < input; i++) {
         playerSelection = playerPlay();
         computerSelection = computerPlay();
         console.log(`Round ${i+1} - - - - -`);
@@ -55,6 +77,14 @@ function game() {
         console.log(`Computer chose: ${computerSelection}`);
         console.log(playRound(playerSelection, computerSelection));
     }
+
+    console.log(`PLAYER'S SCORE: ${playerScore}`);
+    console.log(`COMPUTER'S SCORE: ${computerScore}`);
+
+    if (playerScore > computerScore) alert("You win!");
+    else alert("You lost!");
 }
 
+let playerScore = 0;
+let computerScore = 0;
 game();
