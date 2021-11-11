@@ -23,35 +23,53 @@ function playerPlay() {
 function playRound(playerSelection, computerSelection) {
     switch(playerSelection.toUpperCase()) {
         case "ROCK":
-            if (computerSelection == "ROCK") return `It's a tie! Both chose rock!`;
+            if (computerSelection == "ROCK") {
+                tieScore++;
+                tieTotal.textContent = `Tie: ${tieScore}`;
+                return `It's a tie! Both chose rock!`;
+            }
             else if (computerSelection == "PAPER") {
                 computerScore++;
+                computerTotal.textContent = `Computer: ${computerScore}`;
                 return `You lose! Paper beats rock!`;
             }
             else {
                 playerScore++;
+                playerTotal.textContent = `Player: ${playerScore}`;
                 return `You win! Rock beats scissors!`;
             }
             break;
         case "PAPER":
-            if (computerSelection == "PAPER") return `It's a tie! Both chose paper!`;
+            if (computerSelection == "PAPER") {
+                tieScore++;
+                tieTotal.textContent = `Tie: ${tieScore}`;
+                return `It's a tie! Both chose paper!`;
+            }
             else if (computerSelection == "ROCK") {
                 playerScore++;
+                playerTotal.textContent = `Player: ${playerScore}`;
                 return `You win! Paper beats rock!`;
             }
             else {
                 computerScore++;
+                computerTotal.textContent = `Computer: ${computerScore}`;
                 return `You lose! Scissors beat paper!`;
             }
             break;
         case "SCISSORS":
-            if (computerSelection == "SCISSORS") return `It's a tie! Both chose scissors!`;
+            if (computerSelection == "SCISSORS") {
+                tieScore++;
+                tieTotal.textContent = `Tie: ${tieScore}`;
+                return `It's a tie! Both chose scissors!`;
+            }
             else if (computerSelection == "ROCK") {
                 computerScore++;
+                computerTotal.textContent = `Computer: ${computerScore}`;
                 return `You lose! Rock beats scissors!`;
             }
             else {
                 playerScore++;
+                playerTotal.textContent = `Player: ${playerScore}`;
                 return `You win! Scissors beat paper!`;
             }
             break;
@@ -92,6 +110,32 @@ function game() {
     } while (input.toUpperCase() != "Y" && input.toUpperCase() != "N");
 }
 
+//GUI VERSION BELOW
+
 let playerScore = 0;
 let computerScore = 0;
-game();
+let tieScore = 0;
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (button.id == 'rock') alert(playRound('rock', computerPlay()));
+        else if (button.id == 'paper') alert(playRound('paper', computerPlay()));
+        else if (button.id == 'scissors') alert(playRound('paper', computerPlay()));
+        else alert("Invalid button!");
+    }); //addEventListener
+}); //forEach
+
+const container = document.querySelector('#container');
+const score = document.createElement('div');
+const playerTotal = document.createElement('div');
+const computerTotal = document.createElement('div');
+const tieTotal = document.createElement('div');
+playerTotal.textContent = `Player: ${playerScore}`;
+computerTotal.textContent = `Computer: ${computerScore}`;
+tieTotal.textContent = `Tie: ${tieScore}`;
+
+score.appendChild(playerTotal);
+score.appendChild(computerTotal);
+score.appendChild(tieTotal);
+container.appendChild(score);
