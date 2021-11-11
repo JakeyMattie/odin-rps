@@ -23,91 +23,41 @@ function playerPlay() {
 function playRound(playerSelection, computerSelection) {
     switch(playerSelection.toUpperCase()) {
         case "ROCK":
-            if (computerSelection == "ROCK") {
-                tieScore++;
-                tieTotal.textContent = `Tie: ${tieScore}`;
-                return `It's a tie! Both chose rock!`;
-            }
-            else if (computerSelection == "PAPER") {
-                computerScore++;
-                computerTotal.textContent = `Computer: ${computerScore}`;
-                return `You lose! Paper beats rock!`;
-            }
-            else {
-                playerScore++;
-                playerTotal.textContent = `Player: ${playerScore}`;
-                return `You win! Rock beats scissors!`;
-            }
+            if (computerSelection == "ROCK") return(tie(computerSelection));
+            else if (computerSelection == "PAPER") return(computerWin(playerSelection, computerSelection));
+            else return(playerWin(playerSelection, computerSelection));
             break;
         case "PAPER":
-            if (computerSelection == "PAPER") {
-                tieScore++;
-                tieTotal.textContent = `Tie: ${tieScore}`;
-                return `It's a tie! Both chose paper!`;
-            }
-            else if (computerSelection == "ROCK") {
-                playerScore++;
-                playerTotal.textContent = `Player: ${playerScore}`;
-                return `You win! Paper beats rock!`;
-            }
-            else {
-                computerScore++;
-                computerTotal.textContent = `Computer: ${computerScore}`;
-                return `You lose! Scissors beat paper!`;
-            }
+            if (computerSelection == "PAPER") return(tie(computerSelection));
+            else if (computerSelection == "ROCK") return(playerWin(playerSelection, computerSelection));
+            else return(computerWin(playerSelection, computerSelection));
             break;
         case "SCISSORS":
-            if (computerSelection == "SCISSORS") {
-                tieScore++;
-                tieTotal.textContent = `Tie: ${tieScore}`;
-                return `It's a tie! Both chose scissors!`;
-            }
-            else if (computerSelection == "ROCK") {
-                computerScore++;
-                computerTotal.textContent = `Computer: ${computerScore}`;
-                return `You lose! Rock beats scissors!`;
-            }
-            else {
-                playerScore++;
-                playerTotal.textContent = `Player: ${playerScore}`;
-                return `You win! Scissors beat paper!`;
-            }
+            if (computerSelection == "SCISSORS") return(tie(computerSelection));
+            else if (computerSelection == "ROCK") return(computerWin(playerSelection, computerSelection));
+            else return(playerWin(playerSelection, computerSelection));
             break;
         default: 
             break;
     }
 }
 
-//The entire game, i depends on the number of rounds you want
-function game() {
-    let playerSelection;
-    let computerSelection;
-    let input = prompt("How many rounds?");
+function tie(input) {
+    tieScore++;
+    tieTotal.textContent = `Tie: ${tieScore}`;
+    return `It's a tie! Both chose ${input.charAt(0) + input.substring(1).toLowerCase()}!`;
+}
 
-    playerScore = 0;
-    computerScore = 0;
+function playerWin(playerSelection, computerSelection) {
+    playerScore++;
+    playerTotal.textContent = `Player: ${playerScore}`;
+    return `You win! ${playerSelection.charAt(0).toUpperCase() + playerSelection.substring(1)} beat ${computerSelection.charAt(0) + computerSelection.substring(1).toLowerCase()}!`;
+}
 
-    for (let i = 0; i < input; i++) {
-        playerSelection = playerPlay();
-        computerSelection = computerPlay();
-        console.log(`Round ${i+1} - - - - -`);
-        console.log(`Player chose: ${playerSelection.toUpperCase()}`);
-        console.log(`Computer chose: ${computerSelection}`);
-        console.log(playRound(playerSelection, computerSelection));
-    }
-
-    console.log(`PLAYER'S SCORE: ${playerScore}`);
-    console.log(`COMPUTER'S SCORE: ${computerScore}`);
-
-    if (playerScore > computerScore) alert("You win!");
-    else alert("You lost!");
-
-    do {
-        input = prompt("Play again? Y/N");
-        if (input.toUpperCase() == "Y") game();
-        else if (input.toUpperCase() == "N") alert("Thanks for playing!");
-        else alert("Enter Y or N.");
-    } while (input.toUpperCase() != "Y" && input.toUpperCase() != "N");
+function computerWin(playerSelection, computerSelection) {
+    computerScore++;
+    computerTotal.textContent = `Computer: ${computerScore}`;
+    return `You lose! ${computerSelection.charAt(0) + computerSelection.substring(1).toLowerCase()} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.substring(1)}!`;
 }
 
 //GUI VERSION BELOW
@@ -121,7 +71,7 @@ buttons.forEach((button) => {
     button.addEventListener('click', () => {
         if (button.id == 'rock') alert(playRound('rock', computerPlay()));
         else if (button.id == 'paper') alert(playRound('paper', computerPlay()));
-        else if (button.id == 'scissors') alert(playRound('paper', computerPlay()));
+        else if (button.id == 'scissors') alert(playRound('scissors', computerPlay()));
         else alert("Invalid button!");
     }); //addEventListener
 }); //forEach
