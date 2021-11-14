@@ -60,21 +60,10 @@ function computerWin(playerSelection, computerSelection) {
     return `You lose! ${computerSelection.charAt(0) + computerSelection.substring(1).toLowerCase()} beats ${playerSelection.charAt(0).toUpperCase() + playerSelection.substring(1)}!`;
 }
 
-//==========BUTTON EVENT LISTENERS
 
 let playerScore = 0;
 let computerScore = 0;
 let tieScore = 0;
-
-const buttons = document.querySelectorAll('button');
-buttons.forEach((button) => {
-    button.addEventListener('click', () => {
-        if (button.id == 'rock') alert(playRound('rock', computerPlay()));
-        else if (button.id == 'paper') alert(playRound('paper', computerPlay()));
-        else if (button.id == 'scissors') alert(playRound('scissors', computerPlay()));
-        else alert("Invalid button!");
-    }); //addEventListener
-}); //forEach
 
 //==========MAIN CONTAINER AND BUTTONS
 
@@ -125,3 +114,18 @@ score.appendChild(playerTotal);
 score.appendChild(computerTotal);
 score.appendChild(tieTotal);
 container.appendChild(score);
+
+//==========BUTTON EVENT LISTENERS
+
+const buttons = document.querySelectorAll('button');
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (button.id == 'rock') alert(playRound('rock', computerPlay()));
+        else if (button.id == 'paper') alert(playRound('paper', computerPlay()));
+        else if (button.id == 'scissors') alert(playRound('scissors', computerPlay()));
+        else alert("Invalid button!");
+    }); //addEventListener
+}); //forEach
+
+
+
